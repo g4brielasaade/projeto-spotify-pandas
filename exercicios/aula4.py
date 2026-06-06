@@ -1,32 +1,26 @@
 """
-AULA 4 — Dashboard Visual + Export
+AULA 4 - Dashboard Visual + Export
 ====================================
 
-Tópicos aplicados:
-- Visualização de dados (matplotlib)
+Topicos aplicados:
+- Visualizacao de dados (matplotlib)
 - Conectando dados (concat e merge)
-- Salvando dados (to_csv)
+- Salvando dados (to_csv, to_excel, download)
 
 As funcoes de grafico devem RETORNAR a figura matplotlib (fig), nao chamar
 plt.show(). O Streamlit cuida de exibir.
 """
 
+import io
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
 def grafico_barras_top_artistas(df: pd.DataFrame, n: int = 10):
     """
-    Cria um grafico de barras horizontais com os N artistas que mais somam
-    streams.
+    Grafico de barras horizontais com os N artistas que mais somam streams.
 
-    Passos:
-      1) Agrupar por 'artist(s)_name', somar 'streams', ordenar, pegar os
-         N primeiros. (Pode reaproveitar a logica da aula 3.)
-      2) Criar uma figura com fig, ax = plt.subplots(figsize=(10, 6)).
-      3) Chamar ax.barh(...) passando os nomes e valores.
-      4) Ajustar titulo e labels (set_title, set_xlabel, set_ylabel).
-      5) Retornar a figura (fig).
+    Dica: ax.barh(...). Retorne fig (sem plt.show()).
     """
     # TODO: implemente
     raise NotImplementedError("Funcao grafico_barras_top_artistas ainda nao implementada (aula 4)")
@@ -34,14 +28,9 @@ def grafico_barras_top_artistas(df: pd.DataFrame, n: int = 10):
 
 def grafico_pizza_modo(df: pd.DataFrame):
     """
-    Grafico de pizza com a proporcao de musicas em modo 'Major' x 'Minor'.
+    Pizza com a proporcao de musicas em modo 'Major' x 'Minor'.
 
-    Passos:
-      1) Contar quantas musicas ha de cada modo (value_counts() na coluna 'mode').
-      2) Criar figura com fig, ax = plt.subplots().
-      3) Chamar ax.pie(valores, labels=rotulos, autopct='%1.1f%%').
-      4) Adicionar titulo.
-      5) Retornar fig.
+    Dica: ax.pie(valores, labels=rotulos, autopct='%1.1f%%').
     """
     # TODO: implemente
     raise NotImplementedError("Funcao grafico_pizza_modo ainda nao implementada (aula 4)")
@@ -49,15 +38,7 @@ def grafico_pizza_modo(df: pd.DataFrame):
 
 def grafico_linha_lancamentos_por_ano(df: pd.DataFrame):
     """
-    Grafico de linha com a quantidade de lancamentos por ano (apenas anos
-    >= 2000, para o grafico nao ficar esticado).
-
-    Passos:
-      1) Filtrar df para released_year >= 2000.
-      2) Contar lancamentos por ano.
-      3) Ordenar por ano (sort_index).
-      4) Criar figura, plotar com ax.plot(x, y, marker='o').
-      5) Titulo e labels. Retornar fig.
+    Linha com a quantidade de lancamentos por ano (>= 2000).
     """
     # TODO: implemente
     raise NotImplementedError("Funcao grafico_linha_lancamentos_por_ano ainda nao implementada (aula 4)")
@@ -65,16 +46,9 @@ def grafico_linha_lancamentos_por_ano(df: pd.DataFrame):
 
 def juntar_com_info_artistas(df_spotify: pd.DataFrame, df_info: pd.DataFrame) -> pd.DataFrame:
     """
-    Faz um MERGE entre o DataFrame do Spotify e o de informacoes dos
-    artistas (pais_origem, gravadora, decada_estreia).
-
-    Atencao: as colunas tem nomes diferentes!
-      - No df_spotify, o artista esta em 'artist(s)_name'.
-      - No df_info, esta em 'artist_name'.
-
-    Use pd.merge(... left_on='artist(s)_name', right_on='artist_name',
-    how='left'). Por que how='left'? Para nao perder musicas cujo artista
-    nao esteja na tabela de info.
+    MERGE entre Spotify e info dos artistas (pais_origem, gravadora, etc).
+    No df_spotify a coluna do artista e 'artist(s)_name'; no df_info e 'artist_name'.
+    Use how='left' para nao perder musicas.
     """
     # TODO: implemente
     raise NotImplementedError("Funcao juntar_com_info_artistas ainda nao implementada (aula 4)")
@@ -82,12 +56,7 @@ def juntar_com_info_artistas(df_spotify: pd.DataFrame, df_info: pd.DataFrame) ->
 
 def unir_novos_lancamentos(df_atual: pd.DataFrame, df_novos: pd.DataFrame) -> pd.DataFrame:
     """
-    Faz um CONCAT vertical (axis=0) entre o DataFrame atual e o dos novos
-    lancamentos.
-
-    Use pd.concat([df_atual, df_novos], axis=0, ignore_index=True).
-    Depois do concat, REMOVA duplicatas (a base de novos contem uma
-    duplicata proposital para praticar).
+    CONCAT vertical (axis=0) entre df_atual e df_novos. Depois drop_duplicates.
     """
     # TODO: implemente
     raise NotImplementedError("Funcao unir_novos_lancamentos ainda nao implementada (aula 4)")
@@ -95,8 +64,68 @@ def unir_novos_lancamentos(df_atual: pd.DataFrame, df_novos: pd.DataFrame) -> pd
 
 def salvar_resultado(df: pd.DataFrame, caminho: str) -> None:
     """
-    Salva o DataFrame em CSV no caminho informado, SEM o indice
-    (index=False) e com encoding='utf-8'.
+    Salva o DataFrame em CSV no caminho informado, sem indice e encoding utf-8.
     """
     # TODO: implemente
     raise NotImplementedError("Funcao salvar_resultado ainda nao implementada (aula 4)")
+
+
+def grafico_dispersao_energia_dancabilidade(df: pd.DataFrame):
+    """
+    Scatter plot: eixo X = 'energy_%', eixo Y = 'danceability_%'.
+
+    Passos:
+      1) fig, ax = plt.subplots(figsize=(8, 6))
+      2) ax.scatter(df['energy_%'], df['danceability_%'], alpha=0.5)
+      3) Titulo e labels
+      4) Retornar fig
+    """
+    # TODO: implemente
+    raise NotImplementedError("Funcao grafico_dispersao_energia_dancabilidade ainda nao implementada (aula 4)")
+
+
+def grafico_histograma_bpm(df: pd.DataFrame, bins: int = 30):
+    """
+    Histograma do BPM (batidas por minuto).
+
+    Passos:
+      1) fig, ax = plt.subplots()
+      2) ax.hist(df['bpm'], bins=bins)
+      3) Titulo e labels
+      4) Retornar fig
+    """
+    # TODO: implemente
+    raise NotImplementedError("Funcao grafico_histograma_bpm ainda nao implementada (aula 4)")
+
+
+def salvar_em_excel(df: pd.DataFrame, caminho: str) -> None:
+    """
+    Salva o DataFrame em formato Excel (.xlsx) no caminho informado, sem
+    indice.
+
+    Dica: df.to_excel(caminho, index=False). Precisa do pacote openpyxl
+    instalado (ja esta no requirements.txt).
+    """
+    # TODO: implemente
+    raise NotImplementedError("Funcao salvar_em_excel ainda nao implementada (aula 4)")
+
+
+def preparar_csv_para_download(df: pd.DataFrame) -> bytes:
+    """
+    Prepara o DataFrame como CSV pronto para ser baixado pelo botao
+    st.download_button do Streamlit.
+
+    DIFERENCA para salvar_resultado: aqui NAO escrevemos em arquivo. A funcao
+    deve retornar os BYTES do CSV. O Streamlit recebe esses bytes diretamente.
+
+    Passos:
+      1) Use df.to_csv(index=False) (SEM passar caminho — retorna string).
+      2) Converta a string para bytes com .encode('utf-8').
+      3) Retorne os bytes.
+
+    Exemplo de uso no Streamlit:
+      bytes_csv = preparar_csv_para_download(df)
+      st.download_button("Baixar", bytes_csv, "dados.csv", "text/csv")
+    """
+    # TODO: implemente
+    raise NotImplementedError("Funcao preparar_csv_para_download ainda nao implementada (aula 4)")
