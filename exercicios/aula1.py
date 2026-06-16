@@ -27,6 +27,10 @@ def criar_series_simples(valores: list, indices: list) -> pd.Series:
 
     Dica: pd.Series(data=..., index=...)
     """
+
+    serie_1 = pd.Series(data=[10, 22, 48], index=['a','b','c'])
+    return(serie_1)
+
     # TODO: implemente
     raise NotImplementedError("Funcao criar_series_simples ainda nao implementada (aula 1)")
 
@@ -40,6 +44,14 @@ def criar_dataframe_de_dict(dados: dict) -> pd.DataFrame:
       criar_dataframe_de_dict({'nome': ['Ana', 'Bob'], 'idade': [20, 25]})
       -> DataFrame com colunas 'nome' e 'idade'
     """
+
+    data = dict = {
+    'nome': ['Ana', 'Bob'],
+    'idade':[20, 25]
+    } 
+    dataframe = pd.DataFrame(data)
+    return dataframe
+
     # TODO: implemente
     raise NotImplementedError("Funcao criar_dataframe_de_dict ainda nao implementada (aula 1)")
 
@@ -50,6 +62,9 @@ def obter_dimensoes(df: pd.DataFrame) -> tuple:
 
     Dica: o atributo .shape ja retorna uma tupla pronta.
     """
+
+    return df.shape
+
     # TODO: implemente
     raise NotImplementedError("Funcao obter_dimensoes ainda nao implementada (aula 1)")
 
@@ -67,6 +82,9 @@ def renomear_colunas(df: pd.DataFrame, mapeamento: dict) -> pd.DataFrame:
 
     Dica: df.rename(columns=mapeamento) ja retorna um novo df.
     """
+
+    return df.rename(columns=mapeamento)
+
     # TODO: implemente
     raise NotImplementedError("Funcao renomear_colunas ainda nao implementada (aula 1)")
 
@@ -81,6 +99,8 @@ def definir_indice(df: pd.DataFrame, coluna: str) -> pd.DataFrame:
 
     Dica: df.set_index(coluna)
     """
+    return df.set_index('track_name')
+
     # TODO: implemente
     raise NotImplementedError("Funcao definir_indice ainda nao implementada (aula 1)")
 
@@ -92,5 +112,7 @@ def tipos_das_colunas(df: pd.DataFrame) -> pd.Series:
 
     Dica: o atributo .dtypes ja retorna isso.
     """
+    return df.dtypes
+
     # TODO: implemente
     raise NotImplementedError("Funcao tipos_das_colunas ainda nao implementada (aula 1)")

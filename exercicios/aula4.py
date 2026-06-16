@@ -22,6 +22,15 @@ def grafico_barras_top_artistas(df: pd.DataFrame, n: int = 10):
 
     Dica: ax.barh(...). Retorne fig (sem plt.show()).
     """
+    top_artistas = df.groupby('artist(s)_name')['streams'].sum().sort_values(ascending=False).head(n)
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.barh(top_artistas.index, top_artistas.values)
+    ax.set_xlabel('Total de Streams')
+    ax.set_title(f'Top {n} Artistas por Streams')
+    plt.gca().invert_yaxis()  # Inverte a ordem para o maior ficar no topo
+    return fig
+
+
     # TODO: implemente
     raise NotImplementedError("Funcao grafico_barras_top_artistas ainda nao implementada (aula 4)")
 
@@ -32,6 +41,13 @@ def grafico_pizza_modo(df: pd.DataFrame):
 
     Dica: ax.pie(valores, labels=rotulos, autopct='%1.1f%%').
     """
+
+    contagem_modos = df['mode'].value_counts()
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.pie(contagem_modos.values, labels=contagem_modos.index, autopct='%1.1f%%')
+    ax.set_title('Proporcao de Musicas por Modo')
+    return fig
+
     # TODO: implemente
     raise NotImplementedError("Funcao grafico_pizza_modo ainda nao implementada (aula 4)")
 
@@ -40,6 +56,15 @@ def grafico_linha_lancamentos_por_ano(df: pd.DataFrame):
     """
     Linha com a quantidade de lancamentos por ano (>= 2000).
     """
+    lancamentos_por_ano = df[df['released_year'] >= 2000].groupby('released_year').size()
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(lancamentos_por_ano.index, lancamentos_por_ano.values, marker='o')
+    ax.set_xlabel('Ano de Lancamento')
+    ax.set_ylabel('Quantidade de Lancamentos')
+    ax.set_title('Lancamentos por Ano (>= 2000)')
+    return fig
+
+
     # TODO: implemente
     raise NotImplementedError("Funcao grafico_linha_lancamentos_por_ano ainda nao implementada (aula 4)")
 

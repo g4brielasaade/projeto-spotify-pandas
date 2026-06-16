@@ -25,6 +25,12 @@ def carregar_e_limpar(caminho_csv: str) -> pd.DataFrame:
       4) Remover duplicatas (drop_duplicates).
       5) Retornar o DataFrame limpo.
     """
+    df = pd.read_csv(caminho_csv, encoding='latin-1')
+    df['streams'] = pd.to_numeric(df['streams'], errors='coerce')
+    df = df.dropna(subset=['streams'])
+    df = df.drop_duplicates()
+    return df
+
     # TODO: implemente
     raise NotImplementedError("Funcao carregar_e_limpar ainda nao implementada (aula 2)")
 
