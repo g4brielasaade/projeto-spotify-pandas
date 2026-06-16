@@ -153,6 +153,9 @@ def musicas_por_quantidade_de_artistas(df: pd.DataFrame) -> pd.Series:
 
     Dica: value_counts() na coluna 'artist_count', depois sort_index().
     """
+
+    return df['artist_count'].value_counts().sort_index()
+
     # TODO: implemente
     raise NotImplementedError("Funcao musicas_por_quantidade_de_artistas ainda nao implementada (aula 3)")
 
