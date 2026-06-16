@@ -42,6 +42,12 @@ def inspecionar_coluna(df: pd.DataFrame, coluna: str):
 
     Dica: use pd.api.types.is_numeric_dtype(df[coluna]).
     """
+
+    if pd.api.types.is_numeric_dtype(df[coluna]):
+        return df[coluna].describe()
+    else:
+        return df[coluna].value_counts()
+
     # TODO: implemente
     raise NotImplementedError("Funcao inspecionar_coluna ainda nao implementada (aula 2)")
 
@@ -53,6 +59,8 @@ def filtrar_por_artista(df: pd.DataFrame, artista: str) -> pd.DataFrame:
 
     Dica: .str.contains(artista, case=False, na=False) na coluna 'artist(s)_name'.
     """
+    return df[df['artist(s)_name'].str.contains(artista, case=False, na=False)]
+
     # TODO: implemente
     raise NotImplementedError("Funcao filtrar_por_artista ainda nao implementada (aula 2)")
 
@@ -63,6 +71,8 @@ def filtrar_hits(df: pd.DataFrame, ano_min: int, streams_min: int) -> pd.DataFra
 
     Dica: use parenteses ao redor de cada expressao e o operador & .
     """
+    return df[(df['released_year'] >= ano_min) & (df['streams'] >= streams_min)]
+
     # TODO: implemente
     raise NotImplementedError("Funcao filtrar_hits ainda nao implementada (aula 2)")
 
@@ -77,6 +87,10 @@ def criar_categoria_streams(df: pd.DataFrame) -> pd.DataFrame:
 
     NAO altere o df original (use df.copy()).
     """
+    df_novo = df.copy()
+    df_novo['categoria_streams'] = pd.cut(df_novo['streams'], bins=[0, 100000000, 500000000, 1000000000, float('inf')], labels=['Underground', 'Medio', 'Hit', 'Super Hit'])
+    return df_novo
+
     # TODO: implemente
     raise NotImplementedError("Funcao criar_categoria_streams ainda nao implementada (aula 2)")
 
@@ -87,6 +101,9 @@ def filtrar_por_modo(df: pd.DataFrame, modo: str) -> pd.DataFrame:
 
     Dica: filtro simples df[df['mode'] == modo].
     """
+
+    return df[df['mode'] == modo]
+
     # TODO: implemente
     raise NotImplementedError("Funcao filtrar_por_modo ainda nao implementada (aula 2)")
 
@@ -98,6 +115,8 @@ def filtrar_por_intervalo_ano(df: pd.DataFrame, ano_inicio: int, ano_fim: int) -
 
     Dica: pode usar .between(ano_inicio, ano_fim) ou um AND com >= e <=.
     """
+    return df[df['released_year'].between(ano_inicio, ano_fim)]
+
     # TODO: implemente
     raise NotImplementedError("Funcao filtrar_por_intervalo_ano ainda nao implementada (aula 2)")
 
@@ -110,6 +129,8 @@ def filtrar_super_dancante_ou_super_energica(df: pd.DataFrame, limite: int = 85)
     Dica: use o operador | (pipe) entre as expressoes, com parenteses ao
     redor de cada uma.
     """
+    return df[(df['danceability_%'] >= limite) | (df['energy_%'] >= limite)]
+
     # TODO: implemente
     raise NotImplementedError("Funcao filtrar_super_dancante_ou_super_energica ainda nao implementada (aula 2)")
 
@@ -121,6 +142,9 @@ def contar_nulos_por_coluna(df: pd.DataFrame) -> pd.Series:
 
     Dica: df.isnull().sum().
     """
+
+    return df.isnull().sum()
+
     # TODO: implemente
     raise NotImplementedError("Funcao contar_nulos_por_coluna ainda nao implementada (aula 2)")
 
@@ -136,5 +160,10 @@ def preencher_nulos_da_coluna(df: pd.DataFrame, coluna: str, valor) -> pd.DataFr
 
     Dica: df_novo = df.copy(); df_novo[coluna] = df_novo[coluna].fillna(valor).
     """
+
+    df_novo = df.copy()
+    df_novo[coluna] = df_novo[coluna].fillna(valor)
+    return df_novo
+
     # TODO: implemente
     raise NotImplementedError("Funcao preencher_nulos_da_coluna ainda nao implementada (aula 2)")
